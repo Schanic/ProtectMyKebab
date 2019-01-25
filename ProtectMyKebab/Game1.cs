@@ -48,7 +48,7 @@ namespace ProtectMyKebab
         {
  
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Player = Content.Load<Texture2D>("Player");
+            Player = Content.Load<Texture2D>("player");
             Background = Content.Load<Texture2D>("Background");
 
             PlayerPosition = new Vector2(50, 50);
