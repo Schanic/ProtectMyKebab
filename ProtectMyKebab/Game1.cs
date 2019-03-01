@@ -12,7 +12,7 @@ namespace ProtectMyKebab
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Texture2D Player,Background;
+        Texture2D Player,Background,Bullet;
         Vector2 PlayerPosition;
         Vector2 distance;
         
@@ -50,6 +50,7 @@ namespace ProtectMyKebab
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Player = Content.Load<Texture2D>("player");
             Background = Content.Load<Texture2D>("Background");
+            Bullet = Content.Load<Texture2D>("Bullet");
 
             PlayerPosition = new Vector2(50, 50);
             BackgroundPos = new Vector2(0, 0);
@@ -113,35 +114,33 @@ namespace ProtectMyKebab
 
 
         }
-            public void UpdateBullet()
+        public void UpdateBullet()
+        {
+            foreach (Bullet bullet in bullets)
             {
-                foreach(Bullet bullet in bullets)
-                {
-                    bullet.Position +=  bullet.Velocity;
-                    if (Vector2.Distance(bullet.Position, PlayerPosition) > 1000)
-                        bullet.isVisible = false;
-                }
-                for (int i = 0; i < bullets.Count; i++)
-                {
-                    if(!bullets[i].isVisible)
-                    {
-                        bullets.RemoveAt(i);
-                        i--;
-                    }
-                }
+                if (Vector2.Distance(bullet.Position, PlayerPosition) > 1000);
+                 //   bullet.isVisible = false;
             }
+          //  for (int i = 0; i < bullets.Count; i++)
+           // {
+              //  if (!bullets[i].isVisible)
+               // {
+               //     bullets.RemoveAt(i);
+                //    i--;
+               // }
+            //}
+        }
 
-            public void Shoot()
-            {
-                Bullet newBullet = new Bullet(Content.Load<Texture2D>("Bullet"));
-             
-                newBullet.Velocity = new Vector2((float)Math.Cos(rotation) * 12, (float)Math.Sin(rotation) * 12) ;
-                newBullet.Position = PlayerPosition;
-                newBullet.isVisible = true;
+        public void Shoot()
+        {
 
-                if (bullets.Count() < 2000)
-                    bullets.Add(newBullet);
-            }
+            Vector2 Velocity = new Vector2((float)Math.Cos(rotation) * 12, (float)Math.Sin(rotation) * 12);
+            Vector2 Position = PlayerPosition;
+            Bullet newBullet = new Bullet(Bullet,Position,Velocity);
+
+            if (bullets.Count() < 2000)
+                bullets.Add(newBullet);
+        }
 
         protected override void Draw(GameTime gameTime)
         {

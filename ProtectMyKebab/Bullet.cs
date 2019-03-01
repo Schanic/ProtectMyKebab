@@ -9,35 +9,33 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ProtectMyKebab
 {
-     class Bullet
-    {
-        public Texture2D texture;
+     class Bullet:Basklass
+     {
  
-        public Vector2 Position;
-        public Vector2 Velocity;
-        public Vector2 Direction;
+        private Vector2 position;
+        private Vector2 velocity;
+        private Vector2 direction;
 
-
-        public bool isVisible;
-
-        public Bullet(Texture2D newTexture)
+        public Vector2 Position
         {
-            texture = newTexture;
-            isVisible = false;
-            
+            get { return position; }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            //         spriteBatch.Draw(texture, Position, null, Color.White, 0f, Origin, 1f, SpriteEffects.None, 0);
-             spriteBatch.Draw(texture,Position, new Rectangle(0, 0, 40, 40), Color.White);
 
-           
+        private bool isVisible;
+
+
+        public Bullet(Texture2D newTexture, Vector2 position,Vector2 velocity):base(newTexture, new Rectangle(position.ToPoint(),new Point(4,4)))
+        {
+            this.position = position;
+            this.velocity = velocity;
+            isVisible = true;   
+        }
+
+        public override void Update()
+        {
+            position += velocity;
         }
 
     }
-
-
-
-
 }
